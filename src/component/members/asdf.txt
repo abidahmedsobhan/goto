@@ -1,0 +1,24 @@
+SELECT * FROM group_message INNER JOIN users ON group_message.sender=users.id WHERE g_id = 38;
+
+
+$a .=   { value: 61, label: 'touhid12310' },
+
+
+
+24 = loggedin user and he is member1
+
+
+
+
+SELECT * FROM groups WHERE 
+members1 LIKE '%,24,%' OR 
+members2 LIKE '%,24,%' OR 
+members1 LIKE '%,24' OR 
+members2 LIKE '%,24' OR 
+admin1 = '24' OR 
+admin2 = '24';
+
+
+
+
+
