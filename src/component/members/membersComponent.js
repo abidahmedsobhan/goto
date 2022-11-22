@@ -10,6 +10,7 @@ import Collapsible from "react-collapsible";
 import Tooltip from "@mui/material/Tooltip";
 import Avatar from "@mui/material/Avatar";
 import DeleteIcon from "@mui/icons-material/Delete";
+import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 const MembersComponent = ({ propsMessageID }) => {
   const [members, setMember] = useState();
   const [Chatmembers, setChatMembers] = useState();
@@ -81,7 +82,6 @@ const MembersComponent = ({ propsMessageID }) => {
                       disableGutters
                       secondaryAction={
                         <Box>
-                          {" "}
                           {currentuser === propsMessageID.admin1 ||
                           currentuser === propsMessageID.admin2 ? (
                             <Box>
@@ -97,35 +97,64 @@ const MembersComponent = ({ propsMessageID }) => {
                                       </Typography>
                                     </Box>
                                   ) : (
-                                    ""
+                                    "aa"
                                   )}
                                 </>
                               ) : (
-                                <Tooltip title="Make Admin">
-                                  <Box>
-                                    {item.id.toString() ===
-                                    propsMessageID.admin1 ? (
-                                      ""
-                                    ) : (
-                                      <IconButton
-                                        aria-label="comment"
-                                        style={{
-                                          backgroundColor: "#14f20c",
-                                          width: 25,
-                                          height: 25,
-                                        }}
-                                        onClick={() => {
-                                          handleAdmin2(
-                                            propsMessageID.id,
-                                            item.id
-                                          );
-                                        }}
-                                      >
-                                        <CheckIcon />
-                                      </IconButton>
-                                    )}
-                                  </Box>
-                                </Tooltip>
+                                <Box display="flex" flexDirection="row">
+                                  {" "}
+                                  <Tooltip title="Make Admin">
+                                    <Box>
+                                      {item.id.toString() ===
+                                      propsMessageID.admin1 ? (
+                                        ""
+                                      ) : (
+                                        <IconButton
+                                          aria-label="comment"
+                                          style={{
+                                            backgroundColor: "#14f20c",
+                                            width: 25,
+                                            height: 25,
+                                            margin: 5,
+                                          }}
+                                          onClick={() => {
+                                            handleAdmin2(
+                                              propsMessageID.id,
+                                              item.id
+                                            );
+                                          }}
+                                        >
+                                          <CheckIcon />
+                                        </IconButton>
+                                      )}
+                                    </Box>
+                                  </Tooltip>
+                                  <Tooltip title="Remove User">
+                                    <Box>
+                                      {item.id.toString() ===
+                                      propsMessageID.admin1 ? (
+                                        ""
+                                      ) : (
+                                        <IconButton
+                                          aria-label="comment"
+                                          style={{
+                                            backgroundColor: "#14f20c",
+                                            width: 25,
+                                            height: 25,
+                                            margin: 5,
+                                          }}
+                                          onClick={() => {
+                                            handleAdmin2();
+                                            // propsMessageID.id,
+                                            // item.id
+                                          }}
+                                        >
+                                          <PersonRemoveIcon />
+                                        </IconButton>
+                                      )}
+                                    </Box>
+                                  </Tooltip>
+                                </Box>
                               )}
                             </Box>
                           ) : (
