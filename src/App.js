@@ -6,13 +6,13 @@ function App() {
   console.log(x);
   return (
     <div className="App">
-      <Router>
+      {/* <Router>
         <Switch>
-          <Route exact path="/messanger">
-            <Main />
-          </Route>
+          <Route exact path="/messanger"> */}
+      <Main />
+      {/* </Route>
         </Switch>
-      </Router>
+      </Router> */}
     </div>
   );
 }
