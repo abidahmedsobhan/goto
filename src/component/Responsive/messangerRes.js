@@ -5,6 +5,7 @@ import "./message.css";
 import axios from "axios";
 import SendIcon from "@mui/icons-material/Send";
 import { io } from "socket.io-client";
+import { BaseUrl } from "../baseurl";
 const Messagelist = ({ propsMessageID, current }) => {
   const socket = useRef();
   const scrollRef = useRef();
@@ -13,7 +14,7 @@ const Messagelist = ({ propsMessageID, current }) => {
   const [arrivalMessage, setArrivalMessage] = useState(null);
   //   console.log(propsMessageID.id);
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io("ws://127.0.0.1:8900");
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         g_id: data.g_id,
@@ -53,7 +54,7 @@ const Messagelist = ({ propsMessageID, current }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/getgroupmessage/" + propsMessageID.id)
+      .get(BaseUrl + "/getgroupmessage/" + propsMessageID.id)
       .then((res) => {
         setAllconv(res.data);
       })
@@ -71,7 +72,7 @@ const Messagelist = ({ propsMessageID, current }) => {
 
     try {
       axios
-        .post("http://localhost:3002/groupmessage", {
+        .post(BaseUrl + "groupmessage", {
           g_id: propsMessageID.id,
           sender: current,
           message: msg.Message,

@@ -12,6 +12,7 @@ import Checkbox from "@mui/material/Checkbox";
 import axios from "axios";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import { BaseUrl } from "../baseurl";
 
 const style = {
   position: "absolute",
@@ -38,7 +39,7 @@ function ChildModal({ dis, u, seto, cuser }) {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/api/get")
+      .get(BaseUrl + "api/get")
       .then((response) => {
         setUserList(response.data);
       })
@@ -71,7 +72,7 @@ function ChildModal({ dis, u, seto, cuser }) {
     }
 
     axios
-      .post("http://localhost:3002/creategroup/" + cuser, {
+      .post(BaseUrl + "creategroup/" + cuser, {
         title: u.title,
         members: EEE,
       })

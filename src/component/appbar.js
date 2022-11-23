@@ -8,13 +8,13 @@ import IconButton from "@mui/material/IconButton";
 // import MenuIcon from '@mui/icons-material/Menu';
 import { deepOrange, deepPurple } from "@mui/material/colors";
 import axios from "axios";
-
+import { BaseUrl } from "../component/baseurl";
 export default function ButtonAppBar() {
   const [user, setUser] = useState();
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/getuser/gotogetherapp1@gmail.com")
+      .get(BaseUrl + "getuser/gotogetherapp1@gmail.com")
       .then((response) => {
         setUser(response.data);
       })

@@ -8,10 +8,10 @@ import ResMain from "./Responsive/resMain";
 import MembersComponent from "./members/membersComponent";
 const Main = () => {
   const [propsMessageID, setPropsMessageID] = useState();
-  const [current, setcurrent] = useState(24);
+  const [current, setcurrent] = useState(3);
 
   useEffect(() => {
-    localStorage.setItem("current", JSON.stringify(24));
+    localStorage.setItem("current", JSON.stringify(current));
   }, []);
 
   const matches = useMediaQuery("(max-width:500px)");

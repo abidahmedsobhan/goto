@@ -9,7 +9,7 @@ app.use(express.json());
 
 // Route to get all posts
 app.get("/api/get", (req, res) => {
-  db.query("SELECT * FROM users", (err, result) => {
+  db.query("SELECT * FROM users WHERE not id = 3", (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -52,7 +52,7 @@ app.get("/getgroups/:id", (req, res) => {
   const id = req.params.id;
 
   db.query(
-    `SELECT * FROM groups WHERE members1 LIKE '%,${id},%' OR members2 LIKE '%,${id},%' OR members1 LIKE '%,${id}' OR members2 LIKE '%,${id}' OR admin1 = '${id}' OR admin2 = '${id}'`,
+    `SELECT * FROM groups WHERE members2 LIKE '%,${id},%' OR members2 LIKE '%,${id}' OR admin1 = '${id}' OR admin2 = '${id}'`,
     (err, result) => {
       if (err) {
         console.log(err);
@@ -131,6 +131,7 @@ app.get("/getgroupsformem/:id", (req, res) => {
 app.post("/getuserlistArray/", (req, res) => {
   let members2 = req.body.members2;
   members2 = JSON.parse(members2);
+  console.log(members2);
 
   db.query(
     "SELECT * FROM users WHERE id IN ('" + members2.join("','") + "')",

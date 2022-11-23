@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Typography, Avatar } from "@mui/material";
 import { deepOrange, deepPurple } from "@mui/material/colors";
 import Search from "./search";
-
+import { BaseUrl } from "./baseurl";
 import axios from "axios";
 
 const UserList = ({ setPropsMessageID, current }) => {
@@ -10,20 +10,20 @@ const UserList = ({ setPropsMessageID, current }) => {
   const [isActive, setIsActive] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:3002/getgroups/" + current)
+      .get(BaseUrl + "getgroups/" + current)
       .then((response) => {
         setUserList(response.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [userlist]);
+  }, []);
 
   return (
     <Box
       style={{
         width: 300,
-        height: 500,
+        height: "100vh",
         padding: 10,
         backgroundColor: "whitesmoke",
         overflow: "auto",

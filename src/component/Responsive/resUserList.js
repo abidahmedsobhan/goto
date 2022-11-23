@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Avatar } from "@mui/material";
 import { deepOrange, deepPurple } from "@mui/material/colors";
-
+import { BaseUrl } from "../baseurl";
 import axios from "axios";
 
 const UserList = ({ setPropsMessageID, setIsShown }) => {
@@ -9,7 +9,7 @@ const UserList = ({ setPropsMessageID, setIsShown }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/getgroups")
+      .get(BaseUrl + "getgroups")
       .then((response) => {
         setUserList(response.data);
       })
