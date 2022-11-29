@@ -8,8 +8,10 @@ app.use(cors());
 app.use(express.json());
 
 // Route to get all posts
-app.get("/api/get", (req, res) => {
-  db.query("SELECT * FROM users WHERE not id = 3", (err, result) => {
+app.get("/api/get/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  db.query("SELECT * FROM users WHERE not id = ?", id, (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -50,14 +52,17 @@ app.post("/creategroup/:id", (req, res) => {
 
 app.get("/getgroups/:id", (req, res) => {
   const id = req.params.id;
+  // console.log(id);
 
   db.query(
-    `SELECT * FROM groups WHERE members2 LIKE '%,${id},%' OR members2 LIKE '%,${id}' OR admin1 = '${id}' OR admin2 = '${id}'`,
+    `SELECT * FROM groups WHERE members2 LIKE '%,${id},%' OR members2 LIKE '%,${id}%' OR admin1 = '${id}' OR admin2 = '${id}'`,
     (err, result) => {
       if (err) {
         console.log(err);
       }
       res.send(result);
+
+      // console.log(result[0].id);
     }
   );
 });
@@ -104,7 +109,7 @@ app.post("/groupmessage", (req, res) => {
 });
 
 app.get("/getgroupmessage/:g_id", (req, res) => {
-  console.log("g_id", req.params.g_id);
+  // console.log("g_id", req.params.g_id);
   const g_id = req.params.g_id;
   db.query(
     "SELECT * FROM group_message WHERE g_id = ?",
@@ -131,7 +136,7 @@ app.get("/getgroupsformem/:id", (req, res) => {
 app.post("/getuserlistArray/", (req, res) => {
   let members2 = req.body.members2;
   members2 = JSON.parse(members2);
-  console.log(members2);
+  // console.log(members2);
 
   db.query(
     "SELECT * FROM users WHERE id IN ('" + members2.join("','") + "')",
@@ -153,6 +158,25 @@ app.put("/updateadmin/:g_id", (req, res) => {
   db.query(
     "UPDATE groups SET admin2=? WHERE id = ?",
     [admin2, g_id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      }
+      res.send(result);
+    }
+  );
+});
+
+app.put("/secondAdminaddmembers/:g_id", (req, res) => {
+  const g_id = req.params.g_id;
+  const members2 = req.body.final;
+  console.log(members2);
+
+  let json = JSON.stringify(members2);
+  // console.log(json);
+  db.query(
+    "UPDATE groups SET members2=? WHERE id = ?",
+    [json, g_id],
     (err, result) => {
       if (err) {
         console.log(err);

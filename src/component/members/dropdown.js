@@ -1,19 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Button, Typography, Avatar } from "@mui/material";
 import useCollapse from "react-collapsed";
 import CheckIcon from "@mui/icons-material/Check";
+import makeAnimated from "react-select/animated";
+import Select from "react-select";
+
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import { BaseUrl } from "../baseurl";
+
 import { ArrowDropDownCircle, ArrowDropUpRounded } from "@mui/icons-material";
 import axios from "axios";
-const currentuser = localStorage.getItem("current");
+
 const Dropdown = ({ item, index, propsMessageID }) => {
+  const [open, setOpen] = React.useState(false);
+  const [userlist, setUserList] = useState();
+  const [updatelist, setUpdateList] = useState();
+  const [Options, setOptions] = useState();
+  const animatedComponents = makeAnimated();
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const { getToggleProps, getCollapseProps, isExpanded } = useCollapse({
     defaultExpanded: false,
   });
+
+  const currentuser = localStorage.getItem("current");
 
   const handleAdmin2 = (value, item) => {
     axios
@@ -25,6 +38,11 @@ const Dropdown = ({ item, index, propsMessageID }) => {
         console.log(err);
       });
   };
+
+  // const currentuser = localStorage.getItem("current");
+  // console.log(cuser);
+
+  // console.log("com", propsMessageID);
 
   return (
     <Box key={index}>
@@ -62,17 +80,18 @@ const Dropdown = ({ item, index, propsMessageID }) => {
             {!isExpanded ? <ArrowDropDownCircle /> : <ArrowDropUpRounded />}
           </Box>
         ) : (
-          <Box style={{ margin: 5 }}>
-            {item.id.toString() === propsMessageID.admin1 ||
-            item.id.toString() === propsMessageID.admin2 ? (
-              // <Box display="flex" flexDirection="row">
-              <Typography fontSize={13} color="#037ffc">
-                Admin
-              </Typography>
-            ) : (
-              ""
-            )}
-          </Box>
+          ""
+          // <Box style={{ margin: 5 }}>
+          //   {item.id.toString() === propsMessageID.admin1 ||
+          //   item.id.toString() === propsMessageID.admin2 ? (
+          //     // <Box display="flex" flexDirection="row">
+          //     <Typography fontSize={13} color="#037ffc">
+          //       Admin
+          //     </Typography>
+          //   ) : (
+          //     ""
+          //   )}
+          // </Box>
         )}
       </Box>
 
@@ -84,54 +103,60 @@ const Dropdown = ({ item, index, propsMessageID }) => {
       >
         <Box display="flex" flexDirection="row" justifyContent="space-between">
           <Box justifyContent="flex-start">
-            <Box style={{ margin: 5 }}>
-              {item.id.toString() === propsMessageID.admin2 ? (
-                <Tooltip title="Remove Admin">
-                  <IconButton
-                    aria-label="comment"
-                    style={{
-                      width: 25,
-                      height: 25,
-                      margin: 5,
-                      backgroundColor: "gray",
-                    }}
-                    onClick={() => {
-                      handleAdmin2(propsMessageID.id);
-                    }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </Tooltip>
-              ) : (
-                <Box display="flex" flexDirection="row">
-                  <Tooltip title="Make Admin">
-                    <Box>
-                      {item.id.toString() === propsMessageID.admin1 ? (
-                        ""
-                      ) : (
-                        <Button
-                          aria-label="comment"
-                          style={{
-                            backgroundColor: "#5BB6F3",
+            {currentuser === propsMessageID.admin1 ? (
+              <Box style={{ margin: 5 }}>
+                {item.id.toString() === propsMessageID.admin2 ? (
+                  <Box display flexDirection="row">
+                    <Tooltip title="Remove Admin">
+                      <IconButton
+                        aria-label="comment"
+                        style={{
+                          width: 25,
+                          height: 25,
+                          margin: 5,
+                          backgroundColor: "gray",
+                        }}
+                        onClick={() => {
+                          handleAdmin2(propsMessageID.id);
+                        }}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+                ) : (
+                  <Box display="flex" flexDirection="row">
+                    <Tooltip title="Make Admin">
+                      <Box>
+                        {item.id.toString() === propsMessageID.admin1 ? (
+                          ""
+                        ) : (
+                          <Button
+                            aria-label="comment"
+                            style={{
+                              backgroundColor: "#5BB6F3",
 
-                            margin: 5,
-                          }}
-                          onClick={() => {
-                            handleAdmin2(propsMessageID.id, item.id);
-                          }}
-                        >
-                          Make Admin
-                        </Button>
-                      )}
-                    </Box>
-                  </Tooltip>
-                </Box>
-              )}
-            </Box>
+                              margin: 5,
+                            }}
+                            onClick={() => {
+                              handleAdmin2(propsMessageID.id, item.id);
+                            }}
+                          >
+                            Make Admin
+                          </Button>
+                        )}
+                      </Box>
+                    </Tooltip>
+                  </Box>
+                )}
+              </Box>
+            ) : (
+              ""
+            )}
           </Box>
           <Box></Box>
           <Box>
-            <Typography style={{ padding: 5, margin: 5 }}>asdfasdf</Typography>
+            {/* <Typography style={{ padding: 5, margin: 5 }}>asdfasdf</Typography> */}
           </Box>
         </Box>
       </Box>

@@ -22,14 +22,14 @@ const UserList = ({ setPropsMessageID, current }) => {
   return (
     <Box
       style={{
-        width: 300,
-        height: "100vh",
-        padding: 10,
+        width: 400,
+        height: "90vh",
+        // padding: 10,
         backgroundColor: "whitesmoke",
         overflow: "auto",
       }}
     >
-      <Box style={{ width: 300 }}>
+      <Box style={{ width: "100%", height: "100%" }}>
         <Search current={current} />
         {userlist === undefined ? (
           ""
@@ -60,7 +60,7 @@ const UserList = ({ setPropsMessageID, current }) => {
                     />
 
                     <Box display="flex" flexDirection="column">
-                      <Typography style={{ marginTop: 10, marginLeft: 20 }}>
+                      <Typography style={{ marginTop: 10, marginLeft: 10 }}>
                         {item.title1}
                       </Typography>
                     </Box>

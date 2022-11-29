@@ -39,7 +39,7 @@ function ChildModal({ dis, u, seto, cuser }) {
 
   useEffect(() => {
     axios
-      .get(BaseUrl + "api/get")
+      .get(BaseUrl + "api/get/" + cuser)
       .then((response) => {
         setUserList(response.data);
       })

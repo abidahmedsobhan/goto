@@ -8,7 +8,7 @@ import ResMain from "./Responsive/resMain";
 import MembersComponent from "./members/membersComponent";
 const Main = () => {
   const [propsMessageID, setPropsMessageID] = useState();
-  const [current, setcurrent] = useState(3);
+  const [current, setcurrent] = useState(51);
 
   useEffect(() => {
     localStorage.setItem("current", JSON.stringify(current));
@@ -31,87 +31,45 @@ const Main = () => {
   };
 
   return (
-    <>
+    <Box style={{ width: "100%", height: "100vh" }}>
       {matches ? (
         <Box>
-          {current === undefined ? (
-            <Box style={{ margin: 50, padding: 50, marginLeft: "18%" }}>
-              <TextField
-                id="outlined-basic"
-                label="Enter User ID Which will dynamically get from robi bhai end by session"
-                variant="outlined"
-                name="Message"
-                value={msg.Message}
-                onChange={handleChange}
-                style={{ width: "80%" }}
-              />
-              <Button
-                onClick={() => {
-                  chatenter();
-                }}
-              >
-                Enter Chat
-              </Button>
-            </Box>
-          ) : (
-            <ResMain current={current} />
-          )}
+          <ResMain current={current} />
         </Box>
       ) : (
         <>
           {" "}
-          {current === undefined ? (
-            <Box style={{ margin: 50, padding: 50, marginLeft: "18%" }}>
-              <TextField
-                id="outlined-basic"
-                label="Enter User ID Which will dynamically get from robi bhai end by session"
-                variant="outlined"
-                name="Message"
-                value={msg.Message}
-                onChange={handleChange}
-                style={{ width: "80%" }}
-              />
-              <Button
-                onClick={() => {
-                  chatenter();
-                }}
-              >
-                Enter Chat
-              </Button>
-            </Box>
-          ) : (
-            <>
-              <Appbar />
-              <Box display="flex" flexDirection="row">
-                <Box>
-                  <UserList
-                    setPropsMessageID={setPropsMessageID}
+          <>
+            <Appbar />
+            <Box display="flex" flexDirection="row">
+              <Box display="flex" flexGrow="1">
+                <UserList
+                  setPropsMessageID={setPropsMessageID}
+                  current={current}
+                />
+              </Box>
+              <Box display="flex" flexGrow="1" style={{ width: "100%" }}>
+                {propsMessageID != undefined ? (
+                  <Messagelist
+                    propsMessageID={propsMessageID}
                     current={current}
                   />
-                </Box>
-                <Box>
-                  {propsMessageID != undefined ? (
-                    <Messagelist
-                      propsMessageID={propsMessageID}
-                      current={current}
-                    />
-                  ) : (
-                    "Click a conv to chat"
-                  )}
-                </Box>
-                <Box>
-                  {propsMessageID != undefined ? (
-                    <MembersComponent propsMessageID={propsMessageID} />
-                  ) : (
-                    ""
-                  )}
-                </Box>
-              </Box>{" "}
-            </>
-          )}
+                ) : (
+                  "Click a conv to chat"
+                )}
+              </Box>
+              <Box display="flex" flexGrow="1" style={{ width: "100%" }}>
+                {propsMessageID != undefined ? (
+                  <MembersComponent propsMessageID={propsMessageID} />
+                ) : (
+                  ""
+                )}
+              </Box>
+            </Box>{" "}
+          </>
         </>
       )}
-    </>
+    </Box>
   );
 };
 

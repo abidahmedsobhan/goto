@@ -2,8 +2,8 @@ import Main from "./component/main";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 function App() {
-  let x = document.cookie;
-  console.log(x);
+  let Cuser = document.cookie;
+  console.log(Cuser);
   return (
     <div className="App">
       {/* <Router>

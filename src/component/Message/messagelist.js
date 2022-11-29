@@ -26,7 +26,7 @@ const Messagelist = ({ propsMessageID, current }) => {
   }, [propsMessageID]);
 
   useEffect(() => {
-    socket.current = io("ws://127.0.0.1:8900");
+    socket.current = io("wss://127.0.0.1:8900");
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         g_id: data.g_id,
@@ -99,7 +99,7 @@ const Messagelist = ({ propsMessageID, current }) => {
         <Box>
           <MsgHeader propsMessageID={propsMessageID} />
 
-          <Box style={{ height: 400, overflow: "auto" }}>
+          <Box style={{ height: 480, overflow: "auto" }}>
             {Conv.map((item, index) => {
               return (
                 <div key={index} ref={scrollRef}>
@@ -117,7 +117,7 @@ const Messagelist = ({ propsMessageID, current }) => {
               );
             })}
           </Box>
-          <Box style={{ width: "100%", margin: 5 }}>
+          <Box sx={{ position: "fixed", bottom: 0, left: 410, right: 350 }}>
             <TextField
               id="outlined-basic"
               label="Aa"
@@ -134,13 +134,13 @@ const Messagelist = ({ propsMessageID, current }) => {
                 width: 60,
                 height: 60,
                 marginLeft: 20,
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                sendMessage();
               }}
             >
-              <SendIcon
-                onClick={() => {
-                  sendMessage();
-                }}
-              />
+              <SendIcon />
             </IconButton>
           </Box>
         </Box>
